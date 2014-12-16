@@ -1,0 +1,24 @@
+services:
+    bluetea_setting.app_setting_manager:
+        class: Bluetea\SettingBundle\Doctrine\AppSettingManager
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %bluetea_setting.entity.app_setting.class%
+
+    bluetea_setting.entity_setting_manager:
+        class: Bluetea\SettingBundle\Doctrine\EntitySettingManager
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %bluetea_setting.entity.entity_setting.class%
+
+    bluetea_setting.doctrine_listener:
+        class: Bluetea\SettingBundle\EventListener\DoctrineListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+            - { name: doctrine.event_listener, event: preRemove }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: preUpdate }
