@@ -85,6 +85,18 @@ class SettingManager
     }
 
     /**
+     * @param $id
+     * @return Setting
+     */
+    public function update(Setting $setting, $andFlush = true)
+    {
+        $this->objectManager->persist($setting);
+        if ($andFlush === true) {
+            $this->objectManager->flush();
+        }
+    }
+
+    /**
      * @return string
      */
     public function getClass()
